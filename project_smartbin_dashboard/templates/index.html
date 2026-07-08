@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartBin - Dashboard Monitoring</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script>
+  window._temp_define = window.define;
+  window._temp_module = window.module;
+  window._temp_exports = window.exports;
+  window.define = undefined;
+  window.module = undefined;
+  window.exports = undefined;
+</script>
+<script src="{{ url_for('static', filename='js/chart.umd.min.js') }}"></script>
+<script>
+  window.define = window._temp_define;
+  window.module = window._temp_module;
+  window.exports = window._temp_exports;
+  delete window._temp_define;
+  delete window._temp_module;
+  delete window._temp_exports;
+</script>
+</head>
+<body>
+
+<div class="dashboard-container">
+
+  <!-- ============ HEADER / TOPBAR ============ -->
+  <header class="topbar">
+    <h1>Dashboard Monitoring SmartBin</h1>
+    <div class="topbar-right">
+      <span class="online-pill"><span class="dot-online"></span> Sistem Online</span>
+      <span class="icon-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <span class="badge">3</span>
+      </span>
+      <span class="user-chip">
+        <div class="avatar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="user-info">
+          <span class="user-name">Petugas</span>
+          <span class="user-role">Admin</span>
+        </div>
+      </span>
+    </div>
+  </header>
+
+  <!-- ============ CARDS ROW ============ -->
+  <section class="cards-row">
+    <!-- Card 1: Organik -->
+    <div class="card card-bin">
+      <div class="card-top">
+        <div class="card-icon-circle bg-green-light">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22c1.25-3.87 3.87-6.5 7.75-7.75m1.25-1.25c4.76-1.54 8.7-3.9 11-11-7.1 2.3-9.46 6.24-11 11z"/><path d="M9 14c2.5-2.5 5.5-3.5 8-4"/></svg>
+        </div>
+        <div class="card-title-group">
+          <div class="card-label">Organik</div>
+          <div class="card-sub">Kapasitas</div>
+        </div>
+        <div class="card-illustration text-green">
+          <svg class="bin-illustration" viewBox="0 0 24 28" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 5h14l-1.5 20a2.5 2.5 0 0 1-2.5 2.5H9a2.5 2.5 0 0 1-2.5-2.5L5 5z" opacity="0.15"/>
+            <path d="M6 6l1.2 17.5A1.5 1.5 0 0 0 8.7 25h6.6a1.5 1.5 0 0 0 1.5-1.5L18 6H6z" />
+            <path d="M4 3h16a1 1 0 0 1 1-1v1H3V4a1 1 0 0 1 1-1z" />
+            <path d="M10 1h4v2h-4V1z" />
+            <circle cx="12" cy="15" r="2.5" fill="#fff" opacity="0.3"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card-middle">
+        <div class="card-value-row">
+          <span class="card-value value-green" id="val-organik">--%</span>
+        </div>
+        <div class="card-status-row">
+          <span class="status-label text-green" id="status-organik">-</span>
+        </div>
+      </div>
+      <div class="card-bottom">
+        <div class="progress-container">
+          <div class="progress-track"><div class="progress-fill fill-green" id="bar-organik"></div></div>
+          <span class="progress-pct" id="pct-organik">--%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2: Anorganik -->
+    <div class="card card-bin">
+      <div class="card-top">
+        <div class="card-icon-circle bg-blue-light">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5-2.5-1.5-5.5 0-8s4.5-4 7.5-4h1M19.5 7.5c1.5 2.5 1.5 5.5 0 8s-4.5 4-7.5 4h-1"/><polyline points="12 2 15 5 12 8"/><polyline points="12 22 9 19 12 16"/></svg>
+        </div>
+        <div class="card-title-group">
+          <div class="card-label">Anorganik</div>
+          <div class="card-sub">Kapasitas</div>
+        </div>
+        <div class="card-illustration text-blue">
+          <svg class="bin-illustration" viewBox="0 0 24 28" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 5h14l-1.5 20a2.5 2.5 0 0 1-2.5 2.5H9a2.5 2.5 0 0 1-2.5-2.5L5 5z" opacity="0.15"/>
+            <path d="M6 6l1.2 17.5A1.5 1.5 0 0 0 8.7 25h6.6a1.5 1.5 0 0 0 1.5-1.5L18 6H6z" />
+            <path d="M4 3h16a1 1 0 0 1 1-1v1H3V4a1 1 0 0 1 1-1z" />
+            <path d="M10 1h4v2h-4V1z" />
+            <circle cx="12" cy="15" r="2.5" fill="#fff" opacity="0.3"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card-middle">
+        <div class="card-value-row">
+          <span class="card-value value-blue" id="val-anorganik">--%</span>
+        </div>
+        <div class="card-status-row">
+          <span class="status-label text-blue" id="status-anorganik">-</span>
+        </div>
+      </div>
+      <div class="card-bottom">
+        <div class="progress-container">
+          <div class="progress-track"><div class="progress-fill fill-blue" id="bar-anorganik"></div></div>
+          <span class="progress-pct" id="pct-anorganik">--%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3: Residu -->
+    <div class="card card-bin">
+      <div class="card-top">
+        <div class="card-icon-circle bg-gray-light">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2M10 11v6M14 11v6"/></svg>
+        </div>
+        <div class="card-title-group">
+          <div class="card-label">Residu</div>
+          <div class="card-sub">Kapasitas</div>
+        </div>
+        <div class="card-illustration text-gray">
+          <svg class="bin-illustration" viewBox="0 0 24 28" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 5h14l-1.5 20a2.5 2.5 0 0 1-2.5 2.5H9a2.5 2.5 0 0 1-2.5-2.5L5 5z" opacity="0.15"/>
+            <path d="M6 6l1.2 17.5A1.5 1.5 0 0 0 8.7 25h6.6a1.5 1.5 0 0 0 1.5-1.5L18 6H6z" />
+            <path d="M4 3h16a1 1 0 0 1 1-1v1H3V4a1 1 0 0 1 1-1z" />
+            <path d="M10 1h4v2h-4V1z" />
+            <circle cx="12" cy="15" r="2.5" fill="#fff" opacity="0.3"/>
+          </svg>
+        </div>
+      </div>
+      <div class="card-middle">
+        <div class="card-value-row">
+          <span class="card-value value-gray" id="val-residu">--%</span>
+        </div>
+        <div class="card-status-row">
+          <span class="status-label text-gray" id="status-residu">-</span>
+        </div>
+      </div>
+      <div class="card-bottom">
+        <div class="progress-container">
+          <div class="progress-track"><div class="progress-fill fill-gray" id="bar-residu"></div></div>
+          <span class="progress-pct" id="pct-residu">--%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4: Total Kapasitas -->
+    <div class="card card-donut">
+      <div class="card-donut-left">
+        <div class="card-title-group">
+          <div class="card-label">Total Kapasitas</div>
+          <div class="card-sub">Rata-rata</div>
+        </div>
+        <div class="card-value value-purple" id="val-rata2">--%</div>
+        <div class="status-label text-purple" id="status-rata2">-</div>
+      </div>
+      <div class="donut-wrap">
+        <canvas id="donutChart" width="90" height="90"></canvas>
+        <div class="donut-center" id="val-rata2-donut">--%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MID ROW (CHART & REALTIME) ============ -->
+  <section class="mid-row">
+    <!-- Chart Panel -->
+    <div class="panel chart-panel">
+      <div class="panel-title-row">
+        <h2>Grafik Kapasitas Tempat Sampah</h2>
+        <div class="chart-header-right">
+          <div class="legend">
+            <span class="legend-item"><span class="dot dot-green"></span> Organik</span>
+            <span class="legend-item"><span class="dot dot-blue"></span> Anorganik</span>
+            <span class="legend-item"><span class="dot dot-gray"></span> Residu</span>
+          </div>
+          <div class="chart-time-badge" id="chart-time-badge">--:--</div>
+        </div>
+      </div>
+      <div class="chart-caption">Kapasitas (%)</div>
+      <div class="chart-wrapper">
+        <canvas id="lineChart" height="230"></canvas>
+      </div>
+    </div>
+
+    <!-- Real-time Status Panel -->
+    <div class="panel realtime-panel">
+      <h2>Status Real-time</h2>
+      <div class="realtime-list">
+        <div class="realtime-row">
+          <div class="rt-left">
+            <span class="rt-icon bg-green-light text-green">
+              <svg width="15" height="15" viewBox="0 0 24 28" fill="currentColor"><path d="M6 6l1.2 17.5A1.5 1.5 0 0 0 8.7 25h6.6a1.5 1.5 0 0 0 1.5-1.5L18 6H6z" /><path d="M4 3h16a1 1 0 0 1 1 1v1H3V4a1 1 0 0 1 1-1z" /></svg>
+            </span>
+            <span class="rt-label">Organik</span>
+          </div>
+          <span class="rt-value" id="rt-organik">--%</span>
+          <span class="badge-status" id="rt-status-organik">-</span>
+        </div>
+        <div class="realtime-row">
+          <div class="rt-left">
+            <span class="rt-icon bg-blue-light text-blue">
+              <svg width="15" height="15" viewBox="0 0 24 28" fill="currentColor"><path d="M6 6l1.2 17.5A1.5 1.5 0 0 0 8.7 25h6.6a1.5 1.5 0 0 0 1.5-1.5L18 6H6z" /><path d="M4 3h16a1 1 0 0 1 1 1v1H3V4a1 1 0 0 1 1-1z" /></svg>
+            </span>
+            <span class="rt-label">Anorganik</span>
+          </div>
+          <span class="rt-value" id="rt-anorganik">--%</span>
+          <span class="badge-status" id="rt-status-anorganik">-</span>
+        </div>
+        <div class="realtime-row">
+          <div class="rt-left">
+            <span class="rt-icon bg-gray-light text-gray">
+              <svg width="15" height="15" viewBox="0 0 24 28" fill="currentColor"><path d="M6 6l1.2 17.5A1.5 1.5 0 0 0 8.7 25h6.6a1.5 1.5 0 0 0 1.5-1.5L18 6H6z" /><path d="M4 3h16a1 1 0 0 1 1-1v1H3V4a1 1 0 0 1 1-1z" /></svg>
+            </span>
+            <span class="rt-label">Residu</span>
+          </div>
+          <span class="rt-value" id="rt-residu">--%</span>
+          <span class="badge-status" id="rt-status-residu">-</span>
+        </div>
+      </div>
+
+      <!-- Warning Alert -->
+      <div class="alert-box" id="alert-box" style="display: none;">
+        <div class="alert-header">
+          <span class="alert-warning-icon">⚠️</span>
+          <strong>Peringatan</strong>
+        </div>
+        <p id="alert-text">-</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BOTTOM ROW (TABLES) ============ -->
+  <section class="bottom-row">
+    <!-- Classification History -->
+    <div class="panel table-panel">
+      <div class="panel-title-row">
+        <h2>Riwayat Klasifikasi Terbaru</h2>
+        <a href="#" class="link-small">Lihat Semua</a>
+      </div>
+      <div class="table-wrapper">
+        <table class="klasifikasi-table">
+          <thead>
+            <tr>
+              <th>Waktu</th>
+              <th>Gambar</th>
+              <th>Klasifikasi</th>
+              <th>Jenis</th>
+              <th>Confidence</th>
+            </tr>
+          </thead>
+          <tbody id="klasifikasi-body">
+            <tr><td colspan="5" class="empty-row">Belum ada data klasifikasi</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Notification Panel -->
+    <div class="panel notif-panel">
+      <div class="panel-title-row">
+        <h2>Notifikasi Terbaru</h2>
+        <a href="#" class="link-small">Lihat Semua</a>
+      </div>
+      <div id="notif-list">
+        <div class="empty-row">Belum ada notifikasi</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 SmartBin System. All rights reserved.</span>
+  </footer>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
